@@ -1,0 +1,12 @@
+name: SAST - Semgrep
+
+on: [push, pull_request]
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - uses: actions/checkout@v4
+      - run: semgrep scan --config=p/owasp-top-ten --config=p/javascript --config=p/typescript --config=p/secrets --exclude=".github" --error
